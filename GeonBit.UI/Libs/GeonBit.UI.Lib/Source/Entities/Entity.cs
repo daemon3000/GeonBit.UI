@@ -366,6 +366,9 @@ namespace GeonBit.UI.Entities
                     // if not found climb up to parent
                     type = type.BaseType;
                 }
+
+                // should never get here
+                throw new System.Exception("Internal error in getting default size.");
             }
         }
 
