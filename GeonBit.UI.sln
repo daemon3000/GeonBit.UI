@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeonBit.UI", "GeonBit.UI\GeonBit.UI.csproj", "{DD284F36-FCD5-4265-AE4C-28B9A38B9DEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeonBit.UI.Examples", "GeonBit.UI.Examples\GeonBit.UI.Examples.csproj", "{DD284F36-FCD5-4265-AE4C-28B9A38B9DEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTypes", "GeonBit.UI\Libs\DataTypes\DataTypes.csproj", "{2C87417A-07A7-440A-AFDA-D624CE4ACE05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTypes", "DataTypes\DataTypes.csproj", "{2C87417A-07A7-440A-AFDA-D624CE4ACE05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeonBit.UI.Lib", "GeonBit.UI\Libs\GeonBit.UI.Lib\GeonBit.UI.Lib.csproj", "{A9B71FEE-8BAC-48D9-B044-BAF2E44A1633}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeonBit.UI", "GeonBit.UI\GeonBit.UI.csproj", "{A9B71FEE-8BAC-48D9-B044-BAF2E44A1633}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -19,7 +19,8 @@
     <Language>en-US</Language>
     <DocumentationSources>
       <DocumentationSource sourceFile="GeonBit.UI\bin\DesktopGL\AnyCPU\Release\GeonBit.UI.dll" />
-<DocumentationSource sourceFile="GeonBit.UI\bin\DesktopGL\AnyCPU\Release\GeonBit.UI.xml" /></DocumentationSources>
+      <DocumentationSource sourceFile="GeonBit.UI\bin\DesktopGL\AnyCPU\Release\GeonBit.UI.xml" />
+    </DocumentationSources>
     <TocParentId>-1</TocParentId>
     <TocParentVersion>100</TocParentVersion>
     <TopicVersion>100</TopicVersion>
@@ -32,7 +33,6 @@
     <NamespaceSummaries>
       <NamespaceSummaryItem name="GeonBit.UI" isDocumented="True" />
       <NamespaceSummaryItem name="GeonBit.UI.Entities" isDocumented="True" />
-      <NamespaceSummaryItem name="GeonBit.UI.Example" isDocumented="False" />
     </NamespaceSummaries>
     <VisibleItems>InheritedMembers, InheritedFrameworkMembers, ProtectedInternalAsProtected</VisibleItems>
     <MissingTags>Summary, Parameter, Returns, AutoDocumentCtors, Namespace, AutoDocumentDispose</MissingTags>
@@ -53,7 +53,7 @@
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
-    <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
+    <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <IndentHtml>False</IndentHtml>
     <KeepLogFile>True</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>

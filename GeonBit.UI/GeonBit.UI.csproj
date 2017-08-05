@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DD284F36-FCD5-4265-AE4C-28B9A38B9DEF}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{A9B71FEE-8BAC-48D9-B044-BAF2E44A1633}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GeonBit.UI</RootNamespace>
     <AssemblyName>GeonBit.UI</AssemblyName>
@@ -24,7 +24,6 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
     <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>bin\GeonBit.UI.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
@@ -36,7 +35,6 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
     <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>bin\GeonBit.UI.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
@@ -47,9 +45,35 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GeonBitUI_Examples.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\DrawUtils.cs" />
+    <Compile Include="Source\Entities\Button.cs" />
+    <Compile Include="Source\Entities\CheckBox.cs" />
+    <Compile Include="Source\Entities\ColoredRectangle.cs" />
+    <Compile Include="Source\Entities\Dropdown.cs" />
+    <Compile Include="Source\Entities\Entity.cs" />
+    <Compile Include="Source\Entities\Header.cs" />
+    <Compile Include="Source\Entities\HorizontalLine.cs" />
+    <Compile Include="Source\Entities\Icon.cs" />
+    <Compile Include="Source\Entities\Image.cs" />
+    <Compile Include="Source\Entities\Label.cs" />
+    <Compile Include="Source\Entities\LineSpace.cs" />
+    <Compile Include="Source\Entities\MulticolorParagraph.cs" />
+    <Compile Include="Source\Entities\Panel.cs" />
+    <Compile Include="Source\Entities\PanelTabs.cs" />
+    <Compile Include="Source\Entities\Paragraph.cs" />
+    <Compile Include="Source\Entities\ProgressBar.cs" />
+    <Compile Include="Source\Entities\RadioButton.cs" />
+    <Compile Include="Source\Entities\RootPanel.cs" />
+    <Compile Include="Source\Entities\SelectList.cs" />
+    <Compile Include="Source\Entities\Slider.cs" />
+    <Compile Include="Source\Entities\StyleSheet.cs" />
+    <Compile Include="Source\Entities\TextInput.cs" />
+    <Compile Include="Source\Entities\TextInputValidators.cs" />
+    <Compile Include="Source\Entities\VerticalScrollbar.cs" />
+    <Compile Include="Source\InputHelper.cs" />
+    <Compile Include="Source\Resources.cs" />
+    <Compile Include="Source\UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -111,13 +135,9 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Libs\DataTypes\DataTypes.csproj">
+    <ProjectReference Include="..\DataTypes\DataTypes.csproj">
       <Project>{2c87417a-07a7-440a-afda-d624ce4ace05}</Project>
       <Name>DataTypes</Name>
-    </ProjectReference>
-    <ProjectReference Include="Libs\GeonBit.UI.Lib\GeonBit.UI.Lib.csproj">
-      <Project>{a9b71fee-8bac-48d9-b044-baf2e44a1633}</Project>
-      <Name>GeonBit.UI.Lib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
