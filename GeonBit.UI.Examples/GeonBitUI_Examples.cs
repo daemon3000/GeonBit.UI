@@ -75,6 +75,7 @@ namespace GeonBit.UI.Example
         {         
             // create and init the UI manager
             UserInterface.Initialize(Content, "hd");
+			UserInterface.Active = new UserInterface();
             UserInterface.Active.UseRenderTarget = true;
 
             // Create a new SpriteBatch, which can be used to draw textures.

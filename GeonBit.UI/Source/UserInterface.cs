@@ -222,27 +222,40 @@ namespace GeonBit.UI
 
 		#endregion
 
+		#region [Methods]
+		/// <summary>
+		/// Initialize UI manager (mostly load resources and set some defaults).
+		/// </summary>
+		/// <param name="contentManager">Content manager.</param>
+		/// /// <param name="themeFolder">Root folder with all the themes.</param>
+		/// <param name="theme">Which UI theme to use (see options in Content/GeonBit.UI/themes/). This affect the appearance of all textures and effects.</param>
+		public static void Initialize(ContentManager contentManager, string themeFolder, string theme)
+		{
+			// store the content manager
+			_content = contentManager;
+
+			// init resources (textures etc)
+			Resources.LoadContent(_content, themeFolder, theme);
+		}
+
 		/// <summary>
 		/// Initialize UI manager (mostly load resources and set some defaults).
 		/// </summary>
 		/// <param name="contentManager">Content manager.</param>
 		/// <param name="theme">Which UI theme to use (see options in Content/GeonBit.UI/themes/). This affect the appearance of all textures and effects.</param>
 		public static void Initialize(ContentManager contentManager, string theme)
-        {
-            // store the content manager
-            _content = contentManager;
+		{
+			// store the content manager
+			_content = contentManager;
 
-            // init resources (textures etc)
-            Resources.LoadContent(_content, theme);
+			// init resources (textures etc)
+			Resources.LoadContent(_content, theme);
+		}
 
-            // create a default active user interface
-            Active = new UserInterface();
-        }
-
-        /// <summary>
-        /// Create the user interface instance.
-        /// </summary>
-        public UserInterface()
+		/// <summary>
+		/// Create the user interface instance.
+		/// </summary>
+		public UserInterface()
         { 
             // sanity test
             if (_content == null)
@@ -442,5 +455,7 @@ namespace GeonBit.UI
                 spriteBatch.End();
             }
         }
-    }
+
+		#endregion
+	}
 }

@@ -24,8 +24,8 @@ namespace GeonBit.UI
     /// </summary>
     public static class Resources
     {
-		/// <summary>Root folder for all the themes.</summary>
-		public static string ThemesFolder = "GeonBit.UI/themes/";
+		//	Default root folder with all the themes.
+		private const string DefaultThemesFolder = "GeonBit.UI/themes";
 
         /// <summary>Just a plain white texture, used internally.</summary>
         public static Texture2D WhiteTexture;
@@ -105,15 +105,26 @@ namespace GeonBit.UI
         /// <summary>An effect to draw just a silhouette of the texture.</summary>
         public static Effect SilhouetteEffect;
 
-        /// <summary>
-        /// Load all GeonBit.UI resources.
-        /// </summary>
-        /// <param name="content">Content manager to use.</param>
-        /// <param name="theme">Which theme to load resources from.</param>
-        static public void LoadContent(ContentManager content, string theme = "default")
+		/// <summary>
+		/// Load all GeonBit.UI resources.
+		/// </summary>
+		/// <param name="content">Content manager to use.</param>
+		/// <param name="theme">Which theme to load resources from.</param>
+		static public void LoadContent(ContentManager content, string theme)
+		{
+			LoadContent(content, DefaultThemesFolder, theme);
+		}
+
+		/// <summary>
+		/// Load all GeonBit.UI resources.
+		/// </summary>
+		/// <param name="content">Content manager to use.</param>
+		/// <param name="themeFolder">Root folder with all the themes.</param>
+		/// <param name="theme">Which theme to load resources from.</param>
+		static public void LoadContent(ContentManager content, string themeFolder, string theme)
         {
-            // set resources root path
-            string root = ThemesFolder + theme + "/";
+			// set resources root path
+			string root = string.Concat(themeFolder, "/", theme, "/");
 
             // load cursor textures
             // note: in order not to break old themes etc if the new cursor style is not found, we load the default cursor
