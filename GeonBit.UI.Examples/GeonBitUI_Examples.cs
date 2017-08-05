@@ -74,7 +74,7 @@ namespace GeonBit.UI.Example
         protected override void Initialize()
         {         
             // create and init the UI manager
-            UserInterface.Initialize(Content, BuiltinThemes.hd);
+            UserInterface.Initialize(Content, "hd");
             UserInterface.Active.UseRenderTarget = true;
 
             // Create a new SpriteBatch, which can be used to draw textures.

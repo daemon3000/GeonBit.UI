@@ -58,27 +58,6 @@ namespace GeonBit.UI
     };
 
     /// <summary>
-    /// Enum with all the built-in themes.
-    /// </summary>
-    public enum BuiltinThemes
-    {
-        /// <summary>
-        /// Old-school style theme with hi-res textures.
-        /// </summary>
-        hd,
-
-        /// <summary>
-        /// Old-school style theme with low-res textures.
-        /// </summary>
-        lowres,
-
-        /// <summary>
-        /// Clean, editor-like theme.
-        /// </summary>
-        editor,
-    }
-
-    /// <summary>
     /// Main GeonBit.UI class that manage and draw all the UI entities.
     /// This is the main manager you use to update, draw, and add entities to.
     /// </summary>
@@ -87,29 +66,62 @@ namespace GeonBit.UI
         /// <summary>Current GeonBit.UI version identifier.</summary>
         public const string VERSION = "3.0.0.1";
 
-        /// <summary>
-        /// The currently active user interface instance.
-        /// </summary>
-        public static UserInterface Active = null;
+		#region [Fields]
+		/// <summary>
+		/// The currently active user interface instance.
+		/// </summary>
+		public static UserInterface Active = null;
 
-        // input manager
-        static internal InputHelper _input;
+		/// <summary>Weather or not to draw the cursor.</summary>
+		public bool ShowCursor = true;
 
-        // content manager
-        static ContentManager _content;
+		/// <summary>Cursor rendering size.</summary>
+		public float CursorScale = 1f;
 
-        // the main render target we render everything on
-        RenderTarget2D _renderTarget = null;
+		/// <summary>Screen width.</summary>
+		public int ScreenWidth = 0;
 
-        // are we currently in use-render-target mode
-        private bool _useRenderTarget = false;
+		/// <summary>Screen height.</summary>
+		public int ScreenHeight = 0;
 
-        /// <summary>
-        /// Create a default paragraph instance.
-        /// GeonBit.UI entities use this method when need to create a paragraph, so you can override this to change which paragraph type the built-in
-        /// entities will use by-default (for example Buttons text, SelectList items, etc.).
-        /// </summary>
-        static public DefaultParagraphGenerator DefaultParagraph =
+		/// <summary>Draw utils helper. Contain general drawing functionality and handle effects replacement.</summary>
+		public DrawUtils DrawUtils = null;
+
+		/// <summary>Current active entity, eg last entity user interacted with.</summary>
+		public Entity ActiveEntity = null;
+
+		//	input manager
+		private InputHelper _input;
+
+		// the entity currently being dragged
+		private Entity _dragTarget;
+
+		// the main render target we render everything on
+		private RenderTarget2D _renderTarget = null;
+
+		// are we currently in use-render-target mode
+		private bool _useRenderTarget = false;
+
+		// current global scale
+		private float _scale = 1f;
+
+		// cursor draw settings
+		private Texture2D _cursorTexture = null;
+		private Point _cursorOffset = Point.Zero;
+		private int _cursorWidth = 32;
+
+		//	content manager
+		private static ContentManager _content;
+
+		#endregion
+
+		#region [Properties]
+		/// <summary>
+		/// Create a default paragraph instance.
+		/// GeonBit.UI entities use this method when need to create a paragraph, so you can override this to change which paragraph type the built-in
+		/// entities will use by-default (for example Buttons text, SelectList items, etc.).
+		/// </summary>
+		static public DefaultParagraphGenerator DefaultParagraph =
             (string text, Anchor anchor, Color? color, float? scale, Vector2? size, Vector2? offset) => {
                 if (color != null)
                 {
@@ -140,13 +152,7 @@ namespace GeonBit.UI
         /// Get the root entity.
         /// </summary>
         public RootPanel Root { get; private set; }
-
-        // the entity currently being dragged
-        Entity _dragTarget;
-
-        // current global scale
-        private float _scale = 1f;
-
+		
         /// <summary>Scale the entire UI and all the entities in it. This is useful for smaller device screens.</summary>
         public float GlobalScale
         {
@@ -154,26 +160,14 @@ namespace GeonBit.UI
             set { _scale = value; Root.MarkAsDirty(); }
         }
 
-        /// <summary>Cursor rendering size.</summary>
-        public float CursorScale = 1f;
-
-        /// <summary>Screen width.</summary>
-        public int ScreenWidth = 0;
-
-        /// <summary>Screen height.</summary>
-        public int ScreenHeight = 0;
-
-        /// <summary>Draw utils helper. Contain general drawing functionality and handle effects replacement.</summary>
-        public DrawUtils DrawUtils = null;
-
-        /// <summary>Current active entity, eg last entity user interacted with.</summary>
-        public Entity ActiveEntity = null;
-
         /// <summary>The current target entity, eg what cursor points on. Can be null if cursor don't point on any entity.</summary>
         public Entity TargetEntity { get; private set; }
 
-        /// <summary>Callback to execute when mouse button is pressed over an entity (called once when button is pressed).</summary>
-        public EventCallback OnMouseDown = null;
+		#endregion
+
+		#region [Events]
+		/// <summary>Callback to execute when mouse button is pressed over an entity (called once when button is pressed).</summary>
+		public EventCallback OnMouseDown = null;
 
         /// <summary>Callback to execute when mouse button is released over an entity (called once when button is released).</summary>
         public EventCallback OnMouseReleased = null;
@@ -226,20 +220,14 @@ namespace GeonBit.UI
         /// <summary>Callback to execute every time a new entity is spawned (note: spawn = first time Update() is called on this entity).</summary>
         public EventCallback OnEntitySpawn = null;
 
-        // cursor draw settings
-        Texture2D _cursorTexture = null;
-        int _cursorWidth = 32;
-        Point _cursorOffset = Point.Zero;
+		#endregion
 
-        /// <summary>Weather or not to draw the cursor.</summary>
-        public bool ShowCursor = true;
-
-        /// <summary>
-        /// Initialize UI manager (mostly load resources and set some defaults).
-        /// </summary>
-        /// <param name="contentManager">Content manager.</param>
-        /// <param name="theme">Which UI theme to use (see options in Content/GeonBit.UI/themes/). This affect the appearance of all textures and effects.</param>
-        static public void Initialize(ContentManager contentManager, string theme = "hd")
+		/// <summary>
+		/// Initialize UI manager (mostly load resources and set some defaults).
+		/// </summary>
+		/// <param name="contentManager">Content manager.</param>
+		/// <param name="theme">Which UI theme to use (see options in Content/GeonBit.UI/themes/). This affect the appearance of all textures and effects.</param>
+		public static void Initialize(ContentManager contentManager, string theme)
         {
             // store the content manager
             _content = contentManager;
@@ -249,16 +237,6 @@ namespace GeonBit.UI
 
             // create a default active user interface
             Active = new UserInterface();
-        }
-
-        /// <summary>
-        /// Initialize UI manager (mostly load resources and set some defaults).
-        /// </summary>
-        /// <param name="contentManager">Content manager.</param>
-        /// <param name="theme">Which UI theme to use. This affect the appearance of all textures and effects.</param>
-        static public void Initialize(ContentManager contentManager, BuiltinThemes theme)
-        {
-            Initialize(contentManager, theme.ToString());
         }
 
         /// <summary>

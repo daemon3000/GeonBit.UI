@@ -24,6 +24,9 @@ namespace GeonBit.UI
     /// </summary>
     public static class Resources
     {
+		/// <summary>Root folder for all the themes.</summary>
+		public static string ThemesFolder = "GeonBit.UI/themes/";
+
         /// <summary>Just a plain white texture, used internally.</summary>
         public static Texture2D WhiteTexture;
 
@@ -110,7 +113,7 @@ namespace GeonBit.UI
         static public void LoadContent(ContentManager content, string theme = "default")
         {
             // set resources root path
-            string root = "GeonBit.UI/themes/" + theme + "/";
+            string root = ThemesFolder + theme + "/";
 
             // load cursor textures
             // note: in order not to break old themes etc if the new cursor style is not found, we load the default cursor
