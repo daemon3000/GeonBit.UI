@@ -41,6 +41,15 @@ namespace GeonBit.UI.Example
     /// </summary>
     public class GeonBitUI_Examples : Game
     {
+		static string[] IconsWithBackground = new string[] {
+			"Sword",
+			"Shield",
+			"Armor",
+			"Ring",
+			"RingRuby",
+			"RingGold"
+		};
+
         // graphics and spritebatch
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -183,7 +192,7 @@ namespace GeonBit.UI.Example
 
             // add extra info button
             Button infoBtn = new Button("  Events", anchor: Anchor.BottomLeft, size: new Vector2(280, -1), offset: new Vector2(140, 0));
-            infoBtn.AddChild(new Icon(IconType.Scroll, Anchor.CenterLeft), true);
+            infoBtn.AddChild(new Icon("Scroll", Anchor.CenterLeft), true);
             infoBtn.OnClick = (Entity entity) =>
             {
                 eventsPanel.Visible = !eventsPanel.Visible;
@@ -199,7 +208,7 @@ namespace GeonBit.UI.Example
 
             // init zoom-out button
             Button zoomout = new Button(string.Empty, ButtonSkin.Default, Anchor.BottomLeft, new Vector2(70, 70));
-            Icon zoomoutIcon = new Icon(IconType.ZoomOut, Anchor.Center, 0.75f);
+            Icon zoomoutIcon = new Icon("ZoomOut", Anchor.Center, 0.75f);
             zoomout.AddChild(zoomoutIcon, true);
             zoomout.OnClick = (Entity btn) => {
                 if (UserInterface.Active.GlobalScale > 0.5f)
@@ -210,7 +219,7 @@ namespace GeonBit.UI.Example
 
             // init zoom-in button
             Button zoomin = new Button(string.Empty, ButtonSkin.Default, Anchor.BottomLeft, new Vector2(70, 70), new Vector2(70, 0));
-            Icon zoominIcon = new Icon(IconType.ZoomIn, Anchor.Center, 0.75f);
+            Icon zoominIcon = new Icon("ZoomIn", Anchor.Center, 0.75f);
             zoomin.AddChild(zoominIcon, true);
             zoomin.OnClick = (Entity btn) => {
                 if (UserInterface.Active.GlobalScale < 1.45f)
@@ -605,7 +614,7 @@ Here's a button, to test clicking while scolled:"));
             // example: icons
             {
                 // create panel and add to list of panels and manager
-                Panel panel = new Panel(new Vector2(460, 640));
+                Panel panel = new Panel(new Vector2(460, 700));
                 panels.Add(panel);
                 UserInterface.Active.AddEntity(panel);
 
@@ -614,22 +623,18 @@ Here's a button, to test clicking while scolled:"));
                 panel.AddChild(new HorizontalLine());
                 panel.AddChild(new Paragraph("GeonBit.UI comes with some built-in icons:"));
 
-                foreach (IconType icon in System.Enum.GetValues(typeof(IconType)))
+                foreach(var kvp in Resources.IconTextures)
                 {
-                    if (icon == IconType.None)
-                    {
-                        continue;
-                    }
-                    panel.AddChild(new Icon(icon, Anchor.AutoInline));
+					panel.AddChild(new Icon(kvp.Value, Anchor.AutoInline));
                 }
 
                 panel.AddChild(new Paragraph("And you can also add an inventory-like frame:"));
                 panel.AddChild(new LineSpace());
-                for (int i = 0; i < 6; ++i)
-                {
-                    panel.AddChild(new Icon((IconType)i, Anchor.AutoInline, 1, true));
-                }
-            }
+				foreach(var icon in IconsWithBackground)
+				{
+					panel.AddChild(new Icon(icon, Anchor.AutoInline, 1, true));
+				}
+			}
 
             // example: text input
             {
@@ -746,11 +751,11 @@ Maybe something interesting in tab3?"));
                 panel2.AddChild(new Button("button"));
 
                 panel2.AddChild(new LineSpace());
-                for (int i = 0; i < 6; ++i)
-                {
-                    panel2.AddChild(new Icon((IconType)i, Anchor.AutoInline, 1, true));
-                }
-                panel2.AddChild(new Paragraph("\nDisabled entities are drawn in black & white, and you cannot interact with them.."));
+				foreach(var icon in IconsWithBackground)
+				{
+					panel2.AddChild(new Icon(icon, Anchor.AutoInline, 1, true));
+				}
+				panel2.AddChild(new Paragraph("\nDisabled entities are drawn in black & white, and you cannot interact with them.."));
 
                 SelectList list = new SelectList(new Vector2(0, 130));
                 list.AddItem("Warrior");
@@ -780,11 +785,11 @@ Maybe something interesting in tab3?"));
                 panel2.AddChild(new Button("button"));
                 panel2.AddChild(new LineSpace());
 
-                for (int i = 0; i < 6; ++i)
-                {
-                    panel2.AddChild(new Icon((IconType)i, Anchor.AutoInline, 1, true));
-                }
-                panel2.AddChild(new Paragraph("\nLocked entities will not respond to input, but unlike disabled entities they are drawn normally, eg with colors:"));
+				foreach(var icon in IconsWithBackground)
+				{
+					panel2.AddChild(new Icon(icon, Anchor.AutoInline, 1, true));
+				}
+				panel2.AddChild(new Paragraph("\nLocked entities will not respond to input, but unlike disabled entities they are drawn normally, eg with colors:"));
 
                 SelectList list = new SelectList(new Vector2(0, 130));
                 list.AddItem("Warrior");
@@ -854,7 +859,7 @@ Maybe something interesting in tab3?"));
                 // button with icon
                 Button btn = new Button("Button With Icon");
                 btn.ButtonParagraph.SetPosition(Anchor.CenterLeft, new Vector2(60, 0));
-                btn.AddChild(new Icon(IconType.Book, Anchor.CenterLeft), true);
+                btn.AddChild(new Icon("Book", Anchor.CenterLeft), true);
                 panel.AddChild(btn);
 
                 // change progressbar color
@@ -881,13 +886,13 @@ Maybe something interesting in tab3?"));
 
                 // custom icons
                 panel.AddChild(new Paragraph("Custom icons / images:"));
-                Icon icon = new Icon(IconType.None, Anchor.AutoInline, 1, true, new Vector2(12, 10));
+                Icon icon = new Icon(Anchor.AutoInline, 1, true, new Vector2(12, 10));
                 icon.Texture = Content.Load<Texture2D>("example/warrior");
                 panel.AddChild(icon);
-                icon = new Icon(IconType.None, Anchor.AutoInline, 1, true, new Vector2(12, 10));
+                icon = new Icon(Anchor.AutoInline, 1, true, new Vector2(12, 10));
                 icon.Texture = Content.Load<Texture2D>("example/monk");
                 panel.AddChild(icon);
-                icon = new Icon(IconType.None, Anchor.AutoInline, 1, true, new Vector2(12, 10));
+                icon = new Icon(Anchor.AutoInline, 1, true, new Vector2(12, 10));
                 icon.Texture = Content.Load<Texture2D>("example/mage");
                 panel.AddChild(icon);
             }

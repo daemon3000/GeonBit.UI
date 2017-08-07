@@ -14,7 +14,6 @@
 // Since: 2016.
 //-----------------------------------------------------------------------------
 #endregion
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GeonBit.UI.DataTypes;
@@ -22,114 +21,9 @@ using GeonBit.UI.DataTypes;
 namespace GeonBit.UI.Entities
 {
     /// <summary>
-    /// Pre-defined icons you can use.
+    /// A simple UI icon.
+    /// Comes we a selection of pre-defined icons to use + optional inventory-like background.
     /// </summary>
-    public enum IconType
-    {
-        /// <summary>'Sword' Icon.</summary>
-        Sword = 0,
-        /// <summary>'Shield' Icon.</summary>
-        Shield,
-        /// <summary>'Armor' Icon.</summary>
-        Armor,
-        /// <summary>'Ring' Icon.</summary>
-        Ring,
-        /// <summary>'RingRuby' Icon.</summary>
-        RingRuby,
-        /// <summary>'RingGold' Icon.</summary>
-        RingGold,
-        /// <summary>'RingGoldRuby' Icon.</summary>
-        RingGoldRuby,
-        /// <summary>'Heart' Icon.</summary>
-        Heart,
-        /// <summary>'Apple' Icon.</summary>
-        Apple,
-        /// <summary>'MagicWand' Icon.</summary>
-        MagicWand,
-        /// <summary>'Book' Icon.</summary>
-        Book,
-        /// <summary>'Key' Icon.</summary>
-        Key,
-        /// <summary>'Scroll' Icon.</summary>
-        Scroll,
-        /// <summary>'Skull' Icon.</summary>
-        Skull,
-        /// <summary>'Bone' Icon.</summary>
-        Bone,
-        /// <summary>'RubyPink' Icon.</summary>
-        RubyPink,
-        /// <summary>'RubyBlue' Icon.</summary>
-        RubyBlue,
-        /// <summary>'RubyGreen' Icon.</summary>
-        RubyGreen,
-        /// <summary>'RubyRed' Icon.</summary>
-        RubyRed,
-        /// <summary>'RubyPurple' Icon.</summary>
-        RubyPurple,
-        /// <summary>'Diamond' Icon.</summary>
-        Diamond,
-        /// <summary>'Helmet' Icon.</summary>
-        Helmet,
-        /// <summary>'Shovel' Icon.</summary>
-        Shovel,
-        /// <summary>'Explanation' Icon.</summary>
-        Explanation,
-        /// <summary>'Sack' Icon.</summary>
-        Sack,
-        /// <summary>'GoldCoins' Icon.</summary>
-        GoldCoins,
-        /// <summary>'MagicBook' Icon.</summary>
-        MagicBook,
-        /// <summary>'Map' Icon.</summary>
-        Map,
-        /// <summary>'Feather' Icon.</summary>
-        Feather,
-        /// <summary>'ShieldAndSword' Icon.</summary>
-        ShieldAndSword,
-        /// <summary>'Cubes' Icon.</summary>
-        Cubes,
-        /// <summary>'FloppyDisk' Icon.</summary>
-        FloppyDisk,
-        /// <summary>'BloodySword' Icon.</summary>
-        BloodySword,
-        /// <summary>'Axe' Icon.</summary>
-        Axe,
-        /// <summary>'PotionRed' Icon.</summary>
-        PotionRed,
-        /// <summary>'PotionYellow' Icon.</summary>
-        PotionYellow,
-        /// <summary>'PotionPurple' Icon.</summary>
-        PotionPurple,
-        /// <summary>'PotionBlue' Icon.</summary>
-        PotionBlue,
-        /// <summary>'PotionCyan' Icon.</summary>
-        PotionCyan,
-        /// <summary>'PotionGreen' Icon.</summary>
-        PotionGreen,
-        /// <summary>'Pistol' Icon.</summary>
-        Pistol,
-        /// <summary>'SilverShard' Icon.</summary>
-        SilverShard,
-        /// <summary>'GoldShard' Icon.</summary>
-        GoldShard,
-        /// <summary>'OrbRed' Icon.</summary>
-        OrbRed,
-        /// <summary>'OrbBlue' Icon.</summary>
-        OrbBlue,
-        /// <summary>'OrbGreen' Icon.</summary>
-        OrbGreen,
-        /// <summary>'ZoomIn' Icon.</summary>
-        ZoomIn,
-        /// <summary>'ZoomOut' Icon.</summary>
-        ZoomOut,
-        /// <summary>Special icon that is just an empty texture.</summary>
-        None,
-    }
-
-     /// <summary>
-     /// A simple UI icon.
-     /// Comes we a selection of pre-defined icons to use + optional inventory-like background.
-     /// </summary>
     public class Icon : Image
     {
         /// <summary>If true, will draw inventory-like background to this icon.</summary>
@@ -146,23 +40,49 @@ namespace GeonBit.UI.Entities
         /// </summary>
         public static int BackgroundSize = 10;
 
-        /// <summary>
-        /// Create a new icon.
-        /// Note: if you want to use your own texture for the icon, simply set 'icon' to be IconType.None and replace 'Texture' with
-        /// your own texture after it is created.
-        /// </summary>
-        /// <param name="icon">A pre-defined icon to draw.</param>
-        /// <param name="anchor">Position anchor.</param>
-        /// <param name="scale">Icon default scale.</param>
-        /// <param name="background">Weather or not to show icon inventory-like background.</param>
-        /// <param name="offset">Offset from anchor position.</param>
-        public Icon(IconType icon, Anchor anchor = Anchor.Auto, float scale = 1.0f, bool background = false, Vector2? offset = null) :
+		/// <summary>
+		/// Create a empty icon. Replace 'Texture' with your own texture.
+		/// </summary>
+		/// <param name="anchor">Position anchor.</param>
+		/// <param name="scale">Icon default scale.</param>
+		/// <param name="background">Weather or not to show icon inventory-like background.</param>
+		/// <param name="offset">Offset from anchor position.</param>
+		public Icon(Anchor anchor = Anchor.Auto, float scale = 1.0f, bool background = false, Vector2? offset = null) :
+			base(null, USE_DEFAULT_SIZE, ImageDrawMode.Stretch, anchor, offset)
+		{
+			// set scale and basic properties
+			Scale = scale;
+			DrawBackground = background;
+			Texture = null;
+
+			// set default background color
+			SetStyleProperty("BackgroundColor", new StyleProperty(Color.White));
+
+			// if have background, add default space-after
+			if(background)
+			{
+				SpaceAfter = Vector2.One * BackgroundSize;
+			}
+
+			// update default style
+			UpdateStyle(DefaultStyle);
+		}
+
+		/// <summary>
+		/// Create a new icon.
+		/// </summary>
+		/// <param name="iconName">Name of the icon to draw.</param>
+		/// <param name="anchor">Position anchor.</param>
+		/// <param name="scale">Icon default scale.</param>
+		/// <param name="background">Weather or not to show icon inventory-like background.</param>
+		/// <param name="offset">Offset from anchor position.</param>
+		public Icon(string iconName, Anchor anchor = Anchor.Auto, float scale = 1.0f, bool background = false, Vector2? offset = null) :
             base(null, USE_DEFAULT_SIZE, ImageDrawMode.Stretch, anchor, offset)
         {
             // set scale and basic properties
             Scale = scale;
             DrawBackground = background;
-            Texture = Resources.IconTextures[(int)icon];
+            Texture = Resources.IconTextures[iconName];
 
             // set default background color
             SetStyleProperty("BackgroundColor", new StyleProperty(Color.White));
@@ -177,11 +97,40 @@ namespace GeonBit.UI.Entities
             UpdateStyle(DefaultStyle);
         }
 
-        /// <summary>
-        /// Draw the entity.
-        /// </summary>
-        /// <param name="spriteBatch">Sprite batch to draw on.</param>
-        override protected void DrawEntity(SpriteBatch spriteBatch)
+		/// <summary>
+		/// Create a new icon.
+		/// </summary>
+		/// <param name="icon">The icon to draw.</param>
+		/// <param name="anchor">Position anchor.</param>
+		/// <param name="scale">Icon default scale.</param>
+		/// <param name="background">Weather or not to show icon inventory-like background.</param>
+		/// <param name="offset">Offset from anchor position.</param>
+		public Icon(Texture2D icon, Anchor anchor = Anchor.Auto, float scale = 1.0f, bool background = false, Vector2? offset = null) :
+			base(null, USE_DEFAULT_SIZE, ImageDrawMode.Stretch, anchor, offset)
+		{
+			// set scale and basic properties
+			Scale = scale;
+			DrawBackground = background;
+			Texture = icon;
+
+			// set default background color
+			SetStyleProperty("BackgroundColor", new StyleProperty(Color.White));
+
+			// if have background, add default space-after
+			if(background)
+			{
+				SpaceAfter = Vector2.One * BackgroundSize;
+			}
+
+			// update default style
+			UpdateStyle(DefaultStyle);
+		}
+
+		/// <summary>
+		/// Draw the entity.
+		/// </summary>
+		/// <param name="spriteBatch">Sprite batch to draw on.</param>
+		override protected void DrawEntity(SpriteBatch spriteBatch)
         {
             // draw background
             if (DrawBackground)

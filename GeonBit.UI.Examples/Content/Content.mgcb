@@ -737,18 +737,6 @@
 /processorParam:TextureFormat=Color
 /build:GeonBit.UI/themes/hd/textures/icons/Axe.png
 
-#begin GeonBit.UI/themes/hd/textures/icons/background.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:GeonBit.UI/themes/hd/textures/icons/background.png
-
 #begin GeonBit.UI/themes/hd/textures/icons/BloodySword.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2321,18 +2309,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GeonBit.UI/themes/lowres/textures/icons/Axe.png
-
-#begin GeonBit.UI/themes/lowres/textures/icons/background.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:GeonBit.UI/themes/lowres/textures/icons/background.png
 
 #begin GeonBit.UI/themes/lowres/textures/icons/BloodySword.png
 /importer:TextureImporter
@@ -3940,18 +3916,6 @@
 /processorParam:TextureFormat=Color
 /build:GeonBit.UI/themes/editor/textures/icons/Axe.png
 
-#begin GeonBit.UI/themes/editor/textures/icons/background.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:GeonBit.UI/themes/editor/textures/icons/background.png
-
 #begin GeonBit.UI/themes/editor/textures/icons/BloodySword.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5015,4 +4979,40 @@
 /importer:XmlImporter
 /processor:PassThroughProcessor
 /build:GeonBit.UI/themes/editor/ThemeData.xml
+
+#begin GeonBit.UI/themes/editor/textures/icon_background.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeonBit.UI/themes/editor/textures/icon_background.png
+
+#begin GeonBit.UI/themes/hd/textures/icon_background.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeonBit.UI/themes/hd/textures/icon_background.png
+
+#begin GeonBit.UI/themes/lowres/textures/icon_background.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeonBit.UI/themes/lowres/textures/icon_background.png
 

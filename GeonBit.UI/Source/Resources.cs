@@ -14,7 +14,8 @@ using Microsoft.Xna.Framework;
 using System;
 using GeonBit.UI.Entities;
 using GeonBit.UI.DataTypes;
-
+using System.IO;
+using System.Collections.Generic;
 
 namespace GeonBit.UI
 {
@@ -76,7 +77,7 @@ namespace GeonBit.UI
         public static TextureData[] SliderData;
 
         /// <summary>All icon textures.</summary>
-        public static Texture2D[] IconTextures;
+        public static Dictionary<string, Texture2D> IconTextures;
 
         /// <summary>Icons inventory background texture.</summary>
         public static Texture2D IconBackgroundTexture;
@@ -248,13 +249,23 @@ namespace GeonBit.UI
             ProgressBarFillTexture = content.Load<Texture2D>(root + "textures/progressbar_fill");
             ProgressBarData = content.Load<TextureData>(root + "textures/progressbar_md");
 
-            // load icons
-            IconTextures = new Texture2D[Enum.GetValues(typeof(IconType)).Length];
-            foreach (IconType icon in Enum.GetValues(typeof(IconType)))
-            {
-                IconTextures[(int)(icon)] = content.Load<Texture2D>(root + "textures/icons/" + icon.ToString());
-            }
-            IconBackgroundTexture = content.Load<Texture2D>(root + "textures/icons/background");
+			// load icons
+			IconBackgroundTexture = content.Load<Texture2D>(root + "textures/icon_background");
+			IconTextures = new Dictionary<string, Texture2D>();
+
+			string iconFolder = string.Concat(content.RootDirectory, "/", root, "textures/icons");
+			if(Directory.Exists(iconFolder))
+			{
+				string[] iconFiles = Directory.GetFiles(iconFolder, "*.xnb");
+				foreach(var file in iconFiles)
+				{
+					string assetPath = file.Substring(content.RootDirectory.Length + 1).Replace('\\', '/');
+					string assetName = Path.GetFileNameWithoutExtension(assetPath);
+
+					assetPath = assetPath.Substring(0, assetPath.Length - 4);   //	Remove extension
+					IconTextures[assetName] = content.Load<Texture2D>(assetPath);
+				}
+			}
 
             // load effects
             DisabledEffect = content.Load<Effect>(root + "effects/disabled");
